@@ -6,6 +6,7 @@ SnakeHead :: struct {
     dir_h: i32,
     dir_v: i32,
     length: i32,
+    score: i32,
 }
 
 SnakeBody :: struct {
@@ -21,7 +22,7 @@ SnakeBody :: struct {
     length: number of tail elements
 **/
 new_snake :: proc(x,y, h,v, length: i32) -> (head: SnakeHead, tail: [dynamic]SnakeBody) {
-    head = SnakeHead{x,y,h,v, length}
+    head = SnakeHead{x,y,h,v, length, 0}
     tail = [dynamic]SnakeBody{}
 
     for i: i32 =length; i>0; i-=1 {
