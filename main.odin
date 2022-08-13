@@ -4,6 +4,7 @@ import rl "vendor:raylib"
 import "core:time"
 import "core:fmt"
 import mem "core:mem"
+import c "core:c/libc"
 // import "core:strings"
 
 GameConfig :: struct {
@@ -15,6 +16,15 @@ GameConfig :: struct {
 
 GameMode :: enum {
     Menu, Game, Editor, Options, Exit
+}
+
+
+//Defines a rectangle on the screen. Passed to drawing functions so they know where to draw stuff to. 
+Frame :: struct {
+    left  : c.int,
+    right : c.int,
+    top   : c.int,
+    bottom: c.int,
 }
 
 WINDOW_WIDTH  : i32 : 1200
@@ -38,12 +48,12 @@ main :: proc() {
 
     config := init()
 
-    game_mode := GameMode.Game
+    game_mode := GameMode.Menu
 
     loop: for {
 
         switch game_mode {
-            case .Menu:    {}
+            case .Menu:    { game_mode = menu(config)}
             case .Game:    { game_mode = game(config); }
             case .Editor:  {}
             case .Options: {}
@@ -53,11 +63,6 @@ main :: proc() {
 
         }
     }
-
-    
-    
-
-    CloseWindow()
 }
 
 init :: proc() -> GameConfig{

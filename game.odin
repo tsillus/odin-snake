@@ -167,9 +167,9 @@ game :: proc(config: GameConfig) -> GameMode {
             case .GameOver: {
 
                 #partial switch key : KeyboardKey = GetKeyPressed(); key {
-                    case .ENTER: {
-                        game_state = .Init
-                    }
+                    case .R: { game_state = .Init }
+                    case .M: { return .Menu }
+                    case .Q: { return .Exit }
                 }
 
                 BeginDrawing()
@@ -179,7 +179,7 @@ game :: proc(config: GameConfig) -> GameMode {
                 
                 DrawText("G A M E   O V E R !", 190, 200, 40, RED);
                 DrawText(final_score, 190, 250, 30, RED);
-                DrawText("Press enter to restart", 190, 300, 30, LIGHTGRAY);
+                DrawText("[R]estart, [M]enu, or [Q]uit", 190, 300, 30, LIGHTGRAY);
 
                 EndDrawing()
 
